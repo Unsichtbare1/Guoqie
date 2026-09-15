@@ -12,7 +12,7 @@ Therefore, to use this repository, you need to install Mortal.
 
 ### UUID Retrieval
 
-Scrape the target player’s replay UUIDs from the replay archive. You need to explain your purpose to the administrator and request a token. The `get_uuids.py` script can be used for retrieval.
+Scrape the target player’s replay UUIDs from the replay archive. You need to explain your purpose to the administrator [@SAPikachu](https://github.com/SAPikachu) and request a token. The `get_uuids.py` script can be used for retrieval.
 
 ### Full Replay Download
 
@@ -32,7 +32,7 @@ Due to Mahjong Soul’s download limits, only 300+ Guosheng replays have been co
 
 ## 数据搜索
 ### UUID 获取
-从牌谱屋抓取目标玩家的牌谱 UUID。需要向管理员说明意图并申请token。可以使用`get_uuids.py`脚本获取。
+从牌谱屋抓取目标玩家的牌谱 UUID。需要向管理员[@SAPikachu](https://github.com/SAPikachu)说明意图并申请token。可以使用`get_uuids.py`脚本获取。
 
 ### 完整牌谱下载
 由于雀魂更改了认证方式，tenhou库中抓取部分已经不再适用。此处提供了一个基于浏览器的下载方法，使用时需要手动登陆一次浏览器客户端
