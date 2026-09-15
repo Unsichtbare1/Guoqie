@@ -12,7 +12,7 @@ Therefore, to use this repository, you need to install Mortal.
 
 ### UUID Retrieval
 
-Scrape the target player’s replay UUIDs from the replay archive. You need to explain your purpose to the administrator [@SAPikachu](https://github.com/SAPikachu) and request a token. The `get_uuids.py` script can be used for retrieval.
+Scrape the target player’s replay UUIDs from amae-koromo. You need to explain your purpose to the administrator [@SAPikachu](https://github.com/SAPikachu) and request a token. The `get_uuids.py` script can be used for retrieval.
 
 ### Full Replay Download
 
