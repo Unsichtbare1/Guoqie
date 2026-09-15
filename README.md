@@ -30,6 +30,8 @@ Due to Mahjong Soul’s download limits, only 300+ Guosheng replays have been co
 这个库基于Mortal，其中关键的功能是通过Rust编译的`libriichi`库找出所有决策点，找出所有合法决策用于模型训练。
 所以要使用这个库，你需要安装Mortal库。
 
+最终模型参数约为50万。
+
 ## 数据搜索
 ### UUID 获取
 从牌谱屋抓取目标玩家的牌谱 UUID。需要向管理员[@SAPikachu](https://github.com/SAPikachu)说明意图并申请token。可以使用`get_uuids.py`脚本获取。
@@ -44,3 +46,4 @@ Due to Mahjong Soul’s download limits, only 300+ Guosheng replays have been co
 第二次抓取到500把左右时，训练下来验证准确率为73%，并没有显著增加。很明显模型达到了瓶颈。
 
 之后考虑到实战经常会出现多张牌处于相当概率的情况，这时转而考虑topk的情况，也就是考虑概率最高的几张牌。同样在500局的数据下训练，验证准确率依旧在72%左右。决策位于可能性最高的两个决策中的准确率达到90%，落在最高的三个决策中的准确率达到了95%。
+
