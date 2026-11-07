@@ -1,0 +1,20 @@
+# 凭据与本地配置
+token.txt
+token*.txt
+
+# 数据与模型产物
+data/
+models/
+results/
+*.pt
+*.npz
+*.log
+
+# 废弃脚本与本地工具目录
+deprecated/
+
+# 本地环境与缓存
+.browser-profile/
+.venv/
+node_modules/
+__pycache__/

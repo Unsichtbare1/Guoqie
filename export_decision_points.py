@@ -14,7 +14,7 @@ import numpy as np
 import prelude
 from libriichi.dataset import GameplayLoader
 #cd Mortal-main\mortal
-#python export_decision_points.py "D:\Project-list\guoqie\dataset\mjai" -o "D:\Project-list\guoqie\output\huolongguo" --version 4 --player-names "むほうむてん"
+#python export_decision_points.py "D:\Project-list\guoqie\data\dataset\mjai" -o "D:\Project-list\guoqie\data\output\huolongguo" --version 4 --player-names "むほうむてん"
 
 
 ACTION_NAMES = [
@@ -183,6 +183,8 @@ def export_decision_points(args: argparse.Namespace) -> Path:
 
     total_games = 0
     total_samples = 0
+    total_considered = 0
+    skipped_single_action = 0
 
     for file_idx, (path, _matched_names) in enumerate(selected):
         try:
@@ -209,6 +211,12 @@ def export_decision_points(args: argparse.Namespace) -> Path:
             for sample_idx, action in enumerate(actions):
                 mask_arr = np.asarray(masks[sample_idx], dtype=np.bool_)
                 legal_action_ids = np.flatnonzero(mask_arr).tolist()
+                total_considered += 1
+                # 只有 1 个合法动作的决策点不反映任何选择（如立直后强制摸切、
+                # 单候选杠选择），对行为克隆没有监督价值，直接跳过。
+                if len(legal_action_ids) == 1:
+                    skipped_single_action += 1
+                    continue
                 action_id = int(action)
                 obs_list.append(np.asarray(obs[sample_idx], dtype=np.float32))
                 mask_list.append(mask_arr)
@@ -304,6 +312,8 @@ def export_decision_points(args: argparse.Namespace) -> Path:
         "trust_seed": args.trust_seed,
         "always_include_kan_select": args.always_include_kan_select,
         "sample_count": total_samples,
+        "considered_sample_count": total_considered,
+        "skipped_single_legal_action": skipped_single_action,
         "game_count": total_games,
         "action_names": ACTION_NAMES,
         "source_files": [str(p) for p, _ in selected],
@@ -316,6 +326,10 @@ def export_decision_points(args: argparse.Namespace) -> Path:
     print(
         f"exported {total_samples} decision points / {total_games} games "
         f"from {len(selected)} file(s) -> {out_prefix.with_suffix('.npz')}"
+    )
+    print(
+        f"considered {total_considered} decision points, "
+        f"skipped {skipped_single_action} with exactly 1 legal action"
     )
     if exact_names is not None:
         print(f"matched in-log player name(s): {exact_names}")
